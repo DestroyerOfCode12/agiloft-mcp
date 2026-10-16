@@ -1,0 +1,30 @@
+{
+  "name": "@agiloft-control/core",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json",
+    "migrate": "tsx src/db/migrate-cli.ts"
+  },
+  "dependencies": {
+    "@agiloft-control/agiloft-client": "workspace:*",
+    "@agiloft-control/capabilities": "workspace:*",
+    "@agiloft-control/change-planner": "workspace:*",
+    "@agiloft-control/shared": "workspace:*",
+    "@agiloft-control/test-fixtures": "workspace:*",
+    "@anthropic-ai/sdk": "0.135.0",
+    "@electric-sql/pglite": "0.5.10",
+    "kysely": "0.29.6",
+    "kysely-pglite-dialect": "1.4.0",
+    "pg": "8.23.1",
+    "pino": "10.4.0",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@types/pg": "8.23.1"
+  }
+}
