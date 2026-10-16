@@ -4,7 +4,6 @@ import {
   type ChangePlanContent,
   type Environment,
   type FieldSchema,
-  type ImplementationRoute,
   type OperationInput,
   type ScenarioStep,
   type TableSchema,

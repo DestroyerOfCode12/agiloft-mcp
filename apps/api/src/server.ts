@@ -82,21 +82,17 @@ export async function buildServer(
     if (error instanceof AppError) return reply.status(error.status).send(error.toPayload(req.id));
     const status = (error as { statusCode?: number }).statusCode;
     if (status === 429)
-      return reply
-        .status(429)
-        .send({
-          code: 'RATE_LIMITED',
-          message: 'Too many requests. Slow down and try again.',
-          correlationId: req.id,
-        });
+      return reply.status(429).send({
+        code: 'RATE_LIMITED',
+        message: 'Too many requests. Slow down and try again.',
+        correlationId: req.id,
+      });
     if (status && status >= 400 && status < 500)
-      return reply
-        .status(status)
-        .send({
-          code: 'VALIDATION_FAILED',
-          message: 'The request could not be processed.',
-          correlationId: req.id,
-        });
+      return reply.status(status).send({
+        code: 'VALIDATION_FAILED',
+        message: 'The request could not be processed.',
+        correlationId: req.id,
+      });
     log.error({ err: error, correlationId: req.id }, 'unhandled error');
     return reply.status(500).send(toSafePayload(error, req.id));
   });
@@ -110,7 +106,7 @@ export async function buildServer(
   await registerAuth(f, app);
   registerRoutes(f, app);
 
-  const dist = opts.consoleDist ?? resolve(process.cwd(), '../console/dist');
+  const dist = resolve(opts.consoleDist ?? resolve(process.cwd(), '../console/dist'));
   if (existsSync(resolve(dist, 'index.html'))) {
     await f.register(fastifyStatic, {
       root: dist,
@@ -129,13 +125,11 @@ export async function buildServer(
     });
   } else {
     f.setNotFoundHandler((req, reply) =>
-      reply
-        .status(404)
-        .send({
-          code: 'NOT_FOUND',
-          message: 'Not found. (Console build not present; run pnpm build.)',
-          correlationId: req.id,
-        }),
+      reply.status(404).send({
+        code: 'NOT_FOUND',
+        message: 'Not found. (Console build not present; run pnpm build.)',
+        correlationId: req.id,
+      }),
     );
   }
   return f;
