@@ -62,7 +62,7 @@ const EnvSchema = z.object({
   MCP_DEV_TOKEN: z.string().min(24).optional(),
   MCP_DEV_TOKEN_USER_EMAIL: z.string().email().default('oli.operator@demo.local'),
   MCP_STDIO_USER_EMAIL: z.string().email().default('oli.operator@demo.local'),
-  MCP_ALLOWED_ORIGINS: list(),
+  MCP_ALLOWED_ORIGIN_HOSTS: list(),
 });
 
 export type AppConfig = z.infer<typeof EnvSchema> & {
