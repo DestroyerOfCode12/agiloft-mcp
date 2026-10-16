@@ -28,6 +28,15 @@ export class UserService {
       .executeTakeFirst();
   }
 
+  async findBySubject(subject: string) {
+    return this.db
+      .selectFrom('users')
+      .selectAll()
+      .where('external_subject', '=', subject)
+      .where('disabled', '=', false)
+      .executeTakeFirst();
+  }
+
   async rolesOf(userId: string): Promise<RoleAssignment[]> {
     const rows = await this.db
       .selectFrom('role_assignments')
