@@ -1,0 +1,35 @@
+{
+  "name": "@agiloft-control/mcp-server",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "agiloft-control-mcp": "./dist/stdio.js"
+  },
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json",
+    "build": "node ../../scripts/bundle.mjs src/stdio.ts dist/stdio.js && node ../../scripts/bundle.mjs src/http-main.ts dist/http.js",
+    "start:stdio": "tsx src/stdio.ts",
+    "start:http": "tsx src/http-main.ts",
+    "inspect": "npx -y @modelcontextprotocol/inspector@2.11.0 tsx src/stdio.ts"
+  },
+  "dependencies": {
+    "@agiloft-control/agiloft-client": "workspace:*",
+    "@agiloft-control/capabilities": "workspace:*",
+    "@agiloft-control/change-planner": "workspace:*",
+    "@agiloft-control/core": "workspace:*",
+    "@agiloft-control/shared": "workspace:*",
+    "@electric-sql/pglite": "0.5.10",
+    "@modelcontextprotocol/node": "2.1.1",
+    "@modelcontextprotocol/server": "2.3.1",
+    "jose": "6.2.12",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@modelcontextprotocol/client": "2.3.1",
+    "esbuild": "0.28.2"
+  }
+}
