@@ -1,0 +1,18 @@
+{
+  "name": "@agiloft-control/agiloft-client",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@agiloft-control/capabilities": "workspace:*",
+    "@agiloft-control/shared": "workspace:*",
+    "@agiloft-control/test-fixtures": "workspace:*",
+    "zod": "4.6.7"
+  }
+}
