@@ -137,7 +137,7 @@ export function buildRecordUpdatePlan(args: {
         recordId: args.current.id,
         fields: args.fields,
         before,
-        expected: { dateUpdated: dateUpdated == null ? null : String(dateUpdated) },
+        expected: dateUpdated == null ? {} : { dateUpdated: String(dateUpdated) },
         risk: 'medium',
         sideEffects: [RULE_SIDE_EFFECT],
         compensation: 'Prepare a new plan restoring the "before" values shown in this plan.',

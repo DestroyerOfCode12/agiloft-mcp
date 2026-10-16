@@ -404,10 +404,11 @@ export function buildMcpServer(control: AgiloftControl, principal: Principal): M
         connection_id: connectionId,
         scenario_text: z.string().min(10).max(5_000).optional(),
         requirements: StructuredRequirementsSchema.optional(),
-        plan: z
-          .record(z.string(), z.unknown())
+        plan: ChangePlanContentSchema.omit({ target: true, capabilityEvidence: true })
           .optional()
-          .describe('A full change-plan document (agiloft-control/change-plan@1)'),
+          .describe(
+            'A complete change plan (agiloft-control/change-plan@1). Target and capability evidence are set by the server.',
+          ),
       }),
       annotations: PLAN_WRITE,
     },

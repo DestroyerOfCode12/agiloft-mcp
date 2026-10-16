@@ -192,7 +192,7 @@ export function validatePlan(input: unknown, ctx: ValidationContext): Validation
           op.id,
         );
       }
-      if (!op.expected || op.expected.dateUpdated === undefined) {
+      if (!op.expected?.dateUpdated) {
         warn(
           'NO_DATE_UPDATED',
           'No date_updated was captured; freshness relies on comparing field values only.',
