@@ -21,7 +21,8 @@
     "test:e2e": "playwright test",
     "db:migrate": "pnpm --filter @agiloft-control/core migrate",
     "mcp:stdio": "pnpm --filter @agiloft-control/mcp-server start:stdio",
-    "mcp:inspect": "pnpm --filter @agiloft-control/mcp-server inspect"
+    "mcp:inspect": "pnpm --filter @agiloft-control/mcp-server inspect",
+    "docs:capabilities": "tsx scripts/gen-capability-matrix.ts && prettier --write docs/capability-matrix.md"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.14.0",

@@ -1,0 +1,58 @@
+# Local demo stack: PostgreSQL, console/API (with remote MCP endpoint) and a
+# separate durable worker. This profile uses the development login and is NOT
+# a production configuration; see docs/deployment.md.
+name: agiloft-control
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: agiloft_control
+      POSTGRES_USER: agiloft_control
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-local-dev-only}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U agiloft_control -d agiloft_control']
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  app:
+    build: .
+    depends_on:
+      postgres:
+        condition: service_healthy
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      NODE_ENV: ${NODE_ENV:-development}
+      DATABASE_URL: postgres://agiloft_control:${POSTGRES_PASSWORD:-local-dev-only}@postgres:5432/agiloft_control
+      PUBLIC_BASE_URL: ${PUBLIC_BASE_URL:-http://localhost:8080}
+      AUTH_MODE: ${AUTH_MODE:-dev}
+      DEMO_MODE: ${DEMO_MODE:-true}
+      WORKER_EMBEDDED: 'false'
+      MCP_RESOURCE_URL: ${MCP_RESOURCE_URL:-http://localhost:8090/mcp}
+    ports:
+      - '127.0.0.1:8080:8080'
+      - '127.0.0.1:8090:8090'
+
+  worker:
+    build: .
+    command: ['node', 'apps/worker/dist/main.js']
+    depends_on:
+      app:
+        condition: service_healthy
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      NODE_ENV: ${NODE_ENV:-development}
+      DATABASE_URL: postgres://agiloft_control:${POSTGRES_PASSWORD:-local-dev-only}@postgres:5432/agiloft_control
+      AUTH_MODE: ${AUTH_MODE:-dev}
+    healthcheck:
+      disable: true
+
+volumes:
+  pgdata:
