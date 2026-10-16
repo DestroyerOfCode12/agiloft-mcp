@@ -124,7 +124,7 @@ export function interpretDeterministically(text: string): InterpretationResult {
   let entity = 'record';
   let event: StructuredRequirements['trigger']['event'] = 'created';
   const trig =
-    /\b(?:when|whenever|once|after)\s+(?:an?|the|each|every)?\s*([a-z][a-z \-]{1,60}?)\s+(?:is|are|gets|get|has been)\s+(submitted|created|raised|logged|updated|changed)/i.exec(
+    /\b(?:when|whenever|once|after)\s+(?:an?|the|each|every)?\s*([a-z][a-z -]{1,60}?)\s+(?:is|are|gets|get|has been)\s+(submitted|created|raised|logged|updated|changed)/i.exec(
       text,
     );
   if (trig) {
@@ -191,7 +191,7 @@ export function interpretDeterministically(text: string): InterpretationResult {
   let tasks: StructuredRequirements['tasks'];
   sentences.forEach((s, i) => {
     const t =
-      /\bcreate\s+([a-z\- ]{0,40}?)\s*tasks?\b(?:\s+(after|once|when|on)\s+([a-z ]+?)(?:[,.;]|\s+and\b|$))?/i.exec(
+      /\bcreate\s+([a-z -]{0,40}?)\s*tasks?\b(?:\s+(after|once|when|on)\s+([a-z ]+?)(?:[,.;]|\s+and\b|$))?/i.exec(
         s,
       );
     if (t) {
