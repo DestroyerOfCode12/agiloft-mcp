@@ -9,7 +9,7 @@ import {
   requireBearerAuth,
 } from '@modelcontextprotocol/server';
 import { toWebRequest } from '@modelcontextprotocol/node';
-import { createApp, MCP_SCOPES, type AppContainer } from '@agiloft-control/core';
+import { MCP_SCOPES, type AppContainer } from '@agiloft-control/core';
 import { buildMcpServer } from './tools.ts';
 import { createVerifier, principalFromAuth } from './auth.ts';
 
@@ -126,21 +126,4 @@ export async function startMcpHttp(app: AppContainer) {
       await new Promise<void>((r) => server.close(() => r()));
     },
   };
-}
-
-if (import.meta.url === `file://${process.argv[1]}`) {
-  const app = await createApp();
-  if (!app.config.MCP_OAUTH_ISSUER && !app.config.MCP_DEV_TOKEN) {
-    app.logger.warn(
-      'Neither MCP_OAUTH_ISSUER nor MCP_DEV_TOKEN is set: every request will be rejected with 401.',
-    );
-  }
-  const http = await startMcpHttp(app);
-  const shutdown = async () => {
-    await http.close();
-    await app.close();
-    process.exit(0);
-  };
-  process.on('SIGINT', shutdown);
-  process.on('SIGTERM', shutdown);
 }

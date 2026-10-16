@@ -38,7 +38,14 @@ const VIEWER: Permission[] = [
 
 export const ROLE_PERMISSIONS: Record<Role, readonly Permission[]> = {
   viewer: VIEWER,
-  operator: [...VIEWER, 'plans:write', 'executions:run', 'executions:cancel', 'demo:control'],
+  operator: [
+    ...VIEWER,
+    'capabilities:verify',
+    'plans:write',
+    'executions:run',
+    'executions:cancel',
+    'demo:control',
+  ],
   approver: [...VIEWER, 'plans:approve', 'audit:read'],
   admin: PERMISSIONS,
 };

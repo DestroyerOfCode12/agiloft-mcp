@@ -56,7 +56,7 @@ export function createVerifier(app: AppContainer) {
       }
       if (!payload.sub || !payload.exp)
         throw new OAuthError(OAuthErrorCode.InvalidToken, 'Token lacks sub or exp');
-      const user = await app.users.findBySubject(payload.sub);
+      const user = await app.users.findBySubject(`${c.MCP_OAUTH_ISSUER}|${payload.sub}`);
       if (!user)
         throw new OAuthError(
           OAuthErrorCode.InvalidToken,
