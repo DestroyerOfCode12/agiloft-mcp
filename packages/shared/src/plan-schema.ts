@@ -76,10 +76,10 @@ export const OperationSchema = z.object({
   recordId: RecordIdSchema.optional(),
   fields: z.record(fieldName, FieldValueSchema).optional(),
   /** Values observed when the plan was prepared; used for freshness checks. */
-  before: z.record(z.string(), z.unknown()).optional(),
+  before: z.record(z.string(), z.json()).optional(),
   expected: z
     .object({
-      dateUpdated: z.string().nullable().optional(),
+      dateUpdated: z.string().optional(),
     })
     .optional(),
   /** For creates: a unique field that allows reconciliation after an ambiguous failure. */
@@ -173,7 +173,7 @@ export const ChangePlanContentSchema = z.object({
   request: z.object({
     source: z.enum(['mcp', 'console', 'scenario']),
     text: z.string().max(20_000).optional(),
-    structured: z.unknown().optional(),
+    structured: z.json().optional(),
   }),
   assumptions: z
     .array(
