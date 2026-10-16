@@ -1,0 +1,17 @@
+title = "Agiloft Control gitleaks configuration"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Synthetic test values that look like secrets"
+paths = [
+  '''docs/screenshots/.*''',
+  '''pnpm-lock\.yaml''',
+]
+regexes = [
+  '''dev-token-for-tests-0123456789abcdef''',
+  '''S3cret-Passw0rd''',
+  '''local-dev-only''',
+  '''ci-only''',
+]
