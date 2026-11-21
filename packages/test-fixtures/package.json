@@ -1,0 +1,16 @@
+{
+  "name": "@agiloft-control/test-fixtures",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Synthetic demo dataset. Contains no real people or organisations.",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@agiloft-control/shared": "workspace:*"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "@agiloft-control/worker",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json",
+    "dev": "tsx src/main.ts",
+    "build": "node ../../scripts/bundle.mjs src/main.ts dist/main.js",
+    "start": "node dist/main.js"
+  },
+  "dependencies": {
+    "@agiloft-control/core": "workspace:*",
+    "@electric-sql/pglite": "0.5.10"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2"
+  }
+}
